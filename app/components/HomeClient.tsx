@@ -69,8 +69,7 @@ export default function HomeClient() {
             <h1 className="text-5xl font-black tracking-tight text-white md:text-7xl">Atividades para <span className="block text-cyan-200">estimular a atenção</span></h1>
             <p className="mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white/90 md:text-xl">Material interativo para pais e educadores, com atividades práticas, jogos online, progresso e orientações para aplicar em casa ou na escola.</p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:justify-start">
-              <Link href="/atividades" className="rounded-2xl bg-white px-7 py-4 font-black text-indigo-700 shadow-xl">▶ Iniciar atividades</Link>
-              <Link href="/jogos" className="rounded-2xl border border-white/40 bg-white/15 px-7 py-4 font-black text-white backdrop-blur">🎮 Ver jogos</Link>
+              <Link href="/jogos" className="rounded-2xl bg-white px-7 py-4 font-black text-indigo-700 shadow-xl">🎮 Jogar agora</Link>
             </div>
           </div>
 
@@ -82,11 +81,14 @@ export default function HomeClient() {
               </div>
               <div className="mb-5 h-3 overflow-hidden rounded-full bg-slate-100"><div className="h-full w-[68%] rounded-full bg-gradient-to-r from-indigo-500 to-cyan-400" /></div>
               <div className="grid gap-3">
-                {activities.slice(0,3).map(a => (
-                  <Link href={`/atividades/${a.id}`} key={a.id} className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-3">
-                    <div className={`grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br ${a.color} text-white`}>{a.emoji}</div>
-                    <div className="flex-1"><div className="text-sm font-black">{a.title}</div><div className="text-xs text-slate-500">{a.time}</div></div>
-                    <span className="text-emerald-500">✓</span>
+                {games.map(g => (
+                  <Link href={`/jogos/${g.id}`} key={g.id} className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-3">
+                    <div className="grid h-11 w-11 place-items-center rounded-2xl bg-indigo-100 text-xl">{g.emoji}</div>
+                    <div className="flex-1">
+                      <div className="text-sm font-black">{g.title}</div>
+                      <div className="text-xs text-slate-500">Abrir jogo interativo</div>
+                    </div>
+                    <span className="text-indigo-500">→</span>
                   </Link>
                 ))}
               </div>
@@ -95,7 +97,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      <ActivitiesSection />
       <GamesSection />
       <ProgressSection />
       <TipsSection />
