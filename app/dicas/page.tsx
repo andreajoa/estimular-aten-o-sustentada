@@ -1,5 +1,9 @@
-import { Nav, TipsSection } from "../components/HomeClient";
+import Tips from "../components/Tips";
 
 export default function DicasPage() {
-  return <main className="min-h-screen bg-[#f6f8ff]"><Nav /><TipsSection /></main>;
+  return (
+    <main>
+      <Tips />
+    </main>
+  );
 }

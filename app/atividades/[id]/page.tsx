@@ -1,34 +1,47 @@
 import Link from "next/link";
-import { Nav, activities } from "../../components/HomeClient";
+import { activities } from "../../data/appData";
+
+const detail: Record<string, string[]> = {
+  "caca-aos-detalhes": ["Observe a cena com calma.", "Procure os itens pedidos.", "Marque cada item encontrado.", "Repita aumentando a dificuldade."],
+  "memoria-sequencial": ["Observe a sequência.", "Espere ela desaparecer.", "Repita na mesma ordem.", "Tente novamente se errar."],
+  "desafio-relogio": ["Veja a tarefa.", "Inicie o cronômetro.", "Clique nos itens corretos.", "Confira o resultado."],
+  "historia-interrompida": ["Leia o trecho.", "Pause em pontos importantes.", "Responda perguntas simples.", "Continue a história."],
+  "sequencia-comandos": ["Leia o comando.", "Execute uma etapa por vez.", "Aumente o número de etapas.", "Registre o progresso."],
+};
 
 export default async function AtividadeDetalhe({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const activity = activities.find(a => a.id === id);
+  const activity = activities.find((a) => a.id === id);
 
   if (!activity) {
-    return <main className="min-h-screen bg-[#f6f8ff]"><Nav /><div className="mx-auto max-w-3xl px-4 py-20"><h1 className="text-3xl font-black">Atividade não encontrada</h1><Link href="/atividades" className="mt-6 inline-block rounded-2xl bg-slate-950 px-6 py-3 font-bold text-white">Voltar</Link></div></main>;
+    return (
+      <main className="section-container py-16">
+        <h1 className="text-3xl font-bold">Atividade não encontrada</h1>
+        <Link href="/atividades" className="btn-primary mt-6 inline-block">Voltar</Link>
+      </main>
+    );
   }
 
   return (
-    <main className="min-h-screen bg-[#f6f8ff]">
-      <Nav />
-      <section className="mx-auto max-w-4xl px-4 py-14 md:px-8">
-        <Link href="/atividades" className="font-bold text-indigo-600">← Voltar para atividades</Link>
-        <div className="mt-6 rounded-[2rem] bg-white p-6 shadow-xl md:p-10">
-          <div className={`mb-6 grid h-20 w-20 place-items-center rounded-3xl bg-gradient-to-br ${activity.color} text-4xl text-white`}>{activity.emoji}</div>
-          <h1 className="text-4xl font-black text-slate-950 md:text-6xl">{activity.title}</h1>
-          <p className="mt-4 text-lg leading-relaxed text-slate-600">{activity.desc}</p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <span className="rounded-full bg-indigo-100 px-4 py-2 text-sm font-black text-indigo-700">{activity.level}</span>
-            <span className="rounded-full bg-slate-100 px-4 py-2 text-sm font-black text-slate-600">{activity.time}</span>
-          </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {["Preparar ambiente sem distrações", "Explicar a regra com calma", "Registrar como a criança respondeu"].map(step => (
-              <div key={step} className="rounded-2xl bg-slate-50 p-5 font-bold text-slate-700">✓ {step}</div>
-            ))}
-          </div>
-          <Link href={`/jogos/${activity.id}`} className="mt-8 inline-block rounded-2xl bg-slate-950 px-7 py-4 font-black text-white">Abrir versão interativa</Link>
+    <main className="section-container py-12 md:py-20">
+      <Link href="/atividades" className="text-indigo-600 font-bold">← Voltar</Link>
+      <section className="card mt-6">
+        <div className="text-6xl mb-4">{activity.emoji}</div>
+        <h1 className="text-3xl md:text-5xl font-bold text-slate-800">{activity.title}</h1>
+        <p className="text-slate-500 mt-3">{activity.level} • {activity.time}</p>
+
+        <div className="grid md:grid-cols-2 gap-4 mt-8">
+          {(detail[id] || []).map((step, i) => (
+            <div key={step} className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
+              <div className="font-bold text-indigo-600 mb-1">Passo {i + 1}</div>
+              <p className="text-slate-700">{step}</p>
+            </div>
+          ))}
         </div>
+
+        <Link href="/jogos" className="btn-primary mt-8 inline-block">
+          Abrir jogos interativos
+        </Link>
       </section>
     </main>
   );

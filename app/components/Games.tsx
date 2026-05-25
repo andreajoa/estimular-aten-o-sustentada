@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const GAMES = [
@@ -218,12 +219,19 @@ export default function Games() {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           {GAMES.map((g) => (
-            <button key={g.id} onClick={() => startGame(g.id)}
-              className={`card text-left transition-all hover:scale-105 w-full ${activeGame === g.id ? "border-2 border-indigo-400" : ""}`}>
+            <div key={g.id} className={`card text-left transition-all hover:scale-105 w-full ${activeGame === g.id ? "border-2 border-indigo-400" : ""}`}>
               <div className="text-4xl mb-2">{g.emoji}</div>
               <div className="font-bold text-slate-800">{g.title}</div>
-              <div className="text-sm text-slate-500">{g.desc}</div>
-            </button>
+              <div className="text-sm text-slate-500 mb-4">{g.desc}</div>
+              <div className="flex flex-wrap gap-2">
+                <button onClick={() => startGame(g.id)} className="px-4 py-2 rounded-full bg-indigo-100 text-indigo-700 text-sm font-bold">
+                  Jogar aqui
+                </button>
+                <Link href={`/jogos/${g.id}`} className="px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-bold">
+                  Abrir página
+                </Link>
+              </div>
+            </div>
           ))}
         </div>
 

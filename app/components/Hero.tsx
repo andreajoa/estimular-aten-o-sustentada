@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-cyan-500 text-white py-16 md:py-24 px-4 w-full">
@@ -26,6 +27,15 @@ export default function Hero() {
             </div>
           ))}
         </div>
+        <div className="flex flex-col sm:flex-row justify-center gap-3 mb-8">
+          <Link href="/atividades" className="bg-white text-indigo-700 px-7 py-4 rounded-2xl font-bold shadow-lg hover:scale-105 transition">
+            Iniciar atividades
+          </Link>
+          <Link href="/jogos" className="bg-white/15 border border-white/30 text-white px-7 py-4 rounded-2xl font-bold backdrop-blur hover:bg-white/25 transition">
+            Jogar agora
+          </Link>
+        </div>
+
         <div className="bg-white/10 backdrop-blur rounded-2xl px-6 py-4 inline-block text-sm md:text-base text-white/90 max-w-2xl">
           💡 O mais importante não é a perfeição, mas o treino contínuo em um ambiente acolhedor.
         </div>

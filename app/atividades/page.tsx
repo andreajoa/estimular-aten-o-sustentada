@@ -1,5 +1,9 @@
-import { ActivitiesSection, Nav } from "../components/HomeClient";
+import Activities from "../components/Activities";
 
 export default function AtividadesPage() {
-  return <main className="min-h-screen bg-[#f6f8ff]"><Nav /><ActivitiesSection /></main>;
+  return (
+    <main>
+      <Activities />
+    </main>
+  );
 }
