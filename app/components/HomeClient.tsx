@@ -29,12 +29,10 @@ function Nav() {
           </div>
         </Link>
         <nav className="hidden items-center gap-6 text-sm font-bold text-slate-600 md:flex">
-          <Link href="/atividades">Atividades</Link>
           <Link href="/jogos">Jogos</Link>
           <Link href="/progresso">Progresso</Link>
           <Link href="/dicas">Dicas</Link>
         </nav>
-        <Link href="/atividades" className="rounded-full bg-slate-950 px-5 py-2.5 text-sm font-bold text-white">Começar</Link>
       </div>
     </header>
   );
