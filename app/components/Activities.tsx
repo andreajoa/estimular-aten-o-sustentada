@@ -1,219 +1,203 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const activities = [
   {
-    id: 1,
+    id: "caca-aos-detalhes",
     title: "Caça aos Detalhes",
     level: "Fácil",
-    time: "10-15 min",
-    description: "Imprima ou desenhe uma cena com muitos elementos (praça, zoológico, sala bagunçada). Peça para a criança encontrar determinados itens em um tempo estipulado.",
-    brain: "Córtex Parietal",
-    skill: "Atenção Visual",
-    emoji: "🔍",
-    color: "from-green-400 to-emerald-500",
-    badge: "badge-facil",
-    tips: [
-      "Comece com cenas simples e aumente a complexidade gradualmente",
-      "Use cronômetro para tornar mais desafiador",
-      "Celebre cada item encontrado com entusiasmo",
-      "Adapte o número de itens à idade da criança",
-    ],
-    benefits: [
-      "Melhora a atenção dirigida e seletiva",
-      "Fortalece o córtex parietal responsável pela atenção espacial",
-      "Desenvolve habilidade de varredura visual sistemática",
-    ],
+    time: "10–15 min",
+    emoji: "🔎",
+    color: "from-emerald-400 to-teal-500",
+    desc: "A criança encontra elementos específicos em uma cena divertida.",
+    objective: "Treinar atenção visual, foco e concentração.",
+    steps: ["Escolha uma cena", "Mostre o alvo", "A criança procura", "Celebre cada acerto"],
   },
   {
-    id: 2,
-    title: "Memória Sequencial com Cartas",
+    id: "memoria-sequencial",
+    title: "Memória Sequencial",
     level: "Médio",
-    time: "8-12 min",
-    description: "Use baralhos simples ou figuras em cartões. Mostre 3 a 5 cartas em sequência, depois esconda. Peça que a criança repita na ordem.",
-    brain: "Córtex Pré-frontal",
-    skill: "Memória de Trabalho",
-    emoji: "🃏",
-    color: "from-blue-400 to-indigo-500",
-    badge: "badge-medio",
-    tips: [
-      "Comece com 3 cartas e aumente gradualmente",
-      "Use figuras coloridas e atrativas",
-      "Permita que a criança faça o mesmo com você",
-      "Faça pausas se houver frustração",
-    ],
-    benefits: [
-      "Fortalece a memória de trabalho",
-      "Ativa o córtex pré-frontal e funções executivas",
-      "Melhora a capacidade de sequenciamento",
-    ],
+    time: "8–12 min",
+    emoji: "🧠",
+    color: "from-indigo-400 to-violet-500",
+    desc: "A criança memoriza uma sequência e tenta repetir na mesma ordem.",
+    objective: "Fortalecer memória de trabalho e atenção sustentada.",
+    steps: ["Mostre a sequência", "Espere desaparecer", "Repita na ordem", "Aumente o desafio"],
   },
   {
-    id: 3,
+    id: "desafio-relogio",
     title: "Desafio do Relógio",
     level: "Médio",
-    time: "5-10 min",
-    description: "Proponha tarefas com tempo cronometrado (ex.: 'circule todas as letras A nesta folha em 2 minutos'). Esse exercício ajuda a manter o foco em um objetivo específico.",
-    brain: "Controle Executivo",
-    skill: "Atenção Sustentada",
+    time: "5–10 min",
     emoji: "⏱️",
-    color: "from-orange-400 to-amber-500",
-    badge: "badge-medio",
-    tips: [
-      "Use um timer visual para a criança acompanhar",
-      "Varie os tipos de tarefas para manter o interesse",
-      "Aumente o tempo gradualmente",
-      "Registre os resultados para mostrar evolução",
-    ],
-    benefits: [
-      "Desenvolve atenção sustentada e controle executivo",
-      "Melhora a capacidade de trabalhar sob pressão leve",
-      "Fortalece o senso de tempo e autorregulação",
-    ],
+    color: "from-orange-400 to-rose-500",
+    desc: "A criança completa uma tarefa antes do tempo acabar.",
+    objective: "Estimular foco, velocidade e controle inibitório.",
+    steps: ["Explique a regra", "Inicie o tempo", "Clique nos itens", "Veja o resultado"],
   },
   {
-    id: 4,
+    id: "historia-interrompida",
     title: "História Interrompida",
     level: "Fácil",
-    time: "10-20 min",
-    description: "Leia uma história em voz alta e, de repente, pare. Peça que a criança complete a frase ou detalhe o que aconteceu.",
-    brain: "Córtex Temporal",
-    skill: "Atenção Auditiva",
+    time: "10–20 min",
     emoji: "📖",
-    color: "from-pink-400 to-rose-500",
-    badge: "badge-facil",
-    tips: [
-      "Use histórias do interesse da criança",
-      "Varie os momentos de pausa para surpreender",
-      "Encoraje respostas criativas",
-      "Leia com entonação expressiva para manter atenção",
-    ],
-    benefits: [
-      "Estimula a atenção auditiva e processamento temporal",
-      "Desenvolve compreensão e memória auditiva",
-      "Fortalece o córtex temporal e habilidades narrativas",
-    ],
+    color: "from-pink-400 to-fuchsia-500",
+    desc: "A criança acompanha uma história curta e responde perguntas.",
+    objective: "Melhorar atenção auditiva, compreensão e retomada de foco.",
+    steps: ["Leia o trecho", "Faça uma pausa", "Pergunte algo", "Continue a história"],
   },
   {
-    id: 5,
+    id: "sequencia-comandos",
     title: "Sequência de Comandos",
     level: "Avançado",
-    time: "5-15 min",
-    description: "Dê instruções em sequência (ex.: 'pegue um lápis azul, desenhe um círculo e depois escreva seu nome dentro dele'). Aumente gradualmente a quantidade de passos.",
-    brain: "Córtex Pré-frontal",
-    skill: "Controle Executivo",
-    emoji: "📋",
-    color: "from-violet-400 to-purple-500",
-    badge: "badge-avancado",
-    tips: [
-      "Comece com 2 comandos e vá aumentando",
-      "Fale em tom calmo e claro",
-      "Não repita os comandos — estimule a memória",
-      "Use atividades do cotidiano como base",
-    ],
-    benefits: [
-      "Fortalece o planejamento e controle executivo",
-      "Melhora a memória de trabalho verbal",
-      "Desenvolve a capacidade de seguir instruções complexas",
-    ],
+    time: "5–15 min",
+    emoji: "🎯",
+    color: "from-purple-400 to-indigo-600",
+    desc: "A criança segue comandos em etapas progressivas.",
+    objective: "Trabalhar planejamento, autocontrole e função executiva.",
+    steps: ["Dê 1 comando", "Aumente para 2", "Depois 3 etapas", "Registre evolução"],
   },
 ];
 
-export default function Activities() {
-  const [expanded, setExpanded] = useState<number | null>(null);
-  const [completed, setCompleted] = useState<number[]>([]);
+function levelStyle(level: string) {
+  if (level === "Fácil") return "bg-emerald-100 text-emerald-700";
+  if (level === "Médio") return "bg-amber-100 text-amber-700";
+  return "bg-rose-100 text-rose-700";
+}
 
-  const toggle = (id: number) => setExpanded(expanded === id ? null : id);
-  const toggleComplete = (id: number) => {
-    setCompleted((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-    );
-  };
+export default function Activities() {
+  const [completed, setCompleted] = useState<string[]>([]);
+
+  useEffect(() => {
+    setCompleted(JSON.parse(localStorage.getItem("completed-activities") || "[]"));
+  }, []);
+
+  function toggleComplete(id: string) {
+    const next = completed.includes(id)
+      ? completed.filter((x) => x !== id)
+      : [...completed, id];
+
+    setCompleted(next);
+    localStorage.setItem("completed-activities", JSON.stringify(next));
+    localStorage.setItem("attention-progress", String(Math.min(100, 35 + next.length * 10)));
+  }
 
   return (
-    <section className="py-12 md:py-20 w-full">
-      <div className="section-container">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 mb-3">5 Atividades Essenciais</h2>
-          <p className="text-slate-500 max-w-2xl mx-auto text-sm md:text-base">
-            Cada atividade foi desenvolvida para trabalhar aspectos específicos da atenção,
-            adaptáveis conforme a idade e interesse da criança.
+    <main className="min-h-screen bg-[#f6f8ff] px-4 py-10 md:px-8 md:py-16">
+      <section className="mx-auto max-w-7xl">
+        <div className="mb-8 rounded-[2.5rem] bg-gradient-to-br from-indigo-600 via-purple-600 to-cyan-500 p-6 text-center text-white shadow-2xl md:p-12">
+          <div className="text-5xl">✨</div>
+          <h1 className="mt-3 text-4xl font-black md:text-6xl">Atividades Essenciais</h1>
+          <p className="mx-auto mt-3 max-w-2xl text-white/85">
+            Escolha uma atividade, veja o passo a passo e marque o progresso da criança.
           </p>
-          <div className="mt-4 flex justify-center gap-2 text-sm flex-wrap">
-            <span className="badge-facil px-3 py-1 rounded-full font-medium">🟢 Fácil</span>
-            <span className="badge-medio px-3 py-1 rounded-full font-medium">🟡 Médio</span>
-            <span className="badge-avancado px-3 py-1 rounded-full font-medium">🔴 Avançado</span>
+          <Link href="/" className="mt-6 inline-block rounded-2xl bg-white px-5 py-3 font-black text-indigo-700">
+            Voltar para início
+          </Link>
+        </div>
+
+        <div className="mb-8 grid gap-4 md:grid-cols-3">
+          <div className="rounded-[2rem] bg-white p-5 text-center shadow-lg">
+            <div className="text-3xl font-black text-indigo-600">{activities.length}</div>
+            <div className="text-sm font-bold text-slate-500">atividades</div>
+          </div>
+          <div className="rounded-[2rem] bg-white p-5 text-center shadow-lg">
+            <div className="text-3xl font-black text-emerald-600">{completed.length}</div>
+            <div className="text-sm font-bold text-slate-500">concluídas</div>
+          </div>
+          <div className="rounded-[2rem] bg-white p-5 text-center shadow-lg">
+            <div className="text-3xl font-black text-cyan-600">{Math.round((completed.length / activities.length) * 100)}%</div>
+            <div className="text-sm font-bold text-slate-500">progresso</div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {activities.map((act) => (
-            <div key={act.id} className={`card border-l-4 ${completed.includes(act.id) ? "border-green-400 opacity-80" : "border-indigo-400"}`}>
-              <div className="flex items-start gap-4">
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${act.color} flex items-center justify-center text-2xl flex-shrink-0`}>
-                  {act.emoji}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <h3 className="text-base md:text-lg font-bold text-slate-800">{act.title}</h3>
-                    <span className={`${act.badge} text-xs px-2 py-0.5 rounded-full font-medium`}>{act.level}</span>
-                    <span className="text-xs text-slate-400">⏱ {act.time}</span>
-                  </div>
-                  <div className="flex flex-wrap gap-3 text-xs text-slate-500 mb-2">
-                    <span>🧠 {act.brain}</span>
-                    <span>🎯 {act.skill}</span>
-                  </div>
-                  <p className="text-slate-600 text-sm">{act.description}</p>
-                </div>
-              </div>
+        <div className="grid gap-6 lg:grid-cols-2">
+          {activities.map((activity) => {
+            const done = completed.includes(activity.id);
 
-              <div className="flex flex-wrap gap-3 mt-4 items-center">
-                <button
-                  onClick={() => toggle(act.id)}
-                  className="text-sm text-indigo-600 font-medium hover:text-indigo-800 transition-colors"
-                >
-                  {expanded === act.id ? "▲ Ocultar dicas" : "▼ Ver benefícios e dicas"}
-                </button>
-                <button
-                  onClick={() => toggleComplete(act.id)}
-                  className={`ml-auto text-sm px-4 py-1.5 rounded-full font-medium transition-all ${
-                    completed.includes(act.id)
-                      ? "bg-green-100 text-green-700"
-                      : "bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
-                  }`}
-                >
-                  {completed.includes(act.id) ? "✓ Concluída" : "Marcar como concluída"}
-                </button>
-              </div>
+            return (
+              <article
+                key={activity.id}
+                className={`overflow-hidden rounded-[2rem] border bg-white shadow-xl transition hover:-translate-y-1 ${
+                  done ? "border-emerald-200" : "border-slate-100"
+                }`}
+              >
+                <div className={`h-2 bg-gradient-to-r ${activity.color}`} />
 
-              {expanded === act.id && (
-                <div className="mt-4 grid sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
-                  <div>
-                    <h4 className="font-semibold text-slate-700 mb-2">💡 Dicas</h4>
-                    <ul className="space-y-1">
-                      {act.tips.map((tip, i) => (
-                        <li key={i} className="text-sm text-slate-600 flex gap-2">
-                          <span className="text-indigo-400 mt-0.5">•</span> {tip}
-                        </li>
-                      ))}
-                    </ul>
+                <div className="p-5 md:p-7">
+                  <div className="flex flex-col gap-5 sm:flex-row">
+                    <div className={`grid h-20 w-20 shrink-0 place-items-center rounded-3xl bg-gradient-to-br ${activity.color} text-4xl text-white shadow-lg`}>
+                      {activity.emoji}
+                    </div>
+
+                    <div className="flex-1">
+                      <div className="mb-3 flex flex-wrap gap-2">
+                        <span className={`rounded-full px-3 py-1 text-xs font-black ${levelStyle(activity.level)}`}>
+                          {activity.level}
+                        </span>
+                        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-black text-slate-500">
+                          ⏱ {activity.time}
+                        </span>
+                        {done && (
+                          <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-black text-emerald-700">
+                            ✓ Concluída
+                          </span>
+                        )}
+                      </div>
+
+                      <h2 className="text-2xl font-black text-slate-950">{activity.title}</h2>
+                      <p className="mt-2 text-slate-600">{activity.desc}</p>
+
+                      <div className="mt-4 rounded-2xl bg-slate-50 p-4">
+                        <div className="text-sm font-black text-slate-800">Objetivo</div>
+                        <p className="mt-1 text-sm text-slate-600">{activity.objective}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-slate-700 mb-2">✅ Benefícios</h4>
-                    <ul className="space-y-1">
-                      {act.benefits.map((b, i) => (
-                        <li key={i} className="text-sm text-slate-600 flex gap-2">
-                          <span className="text-green-400 mt-0.5">•</span> {b}
-                        </li>
-                      ))}
-                    </ul>
+
+                  <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                    {activity.steps.map((step, index) => (
+                      <div key={step} className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                        <div className="text-xs font-black text-indigo-600">PASSO {index + 1}</div>
+                        <div className="mt-1 font-bold text-slate-700">{step}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                    <Link
+                      href={`/atividades/${activity.id}`}
+                      className="flex-1 rounded-2xl bg-slate-950 px-5 py-3 text-center font-black text-white"
+                    >
+                      Ver detalhes
+                    </Link>
+
+                    <Link
+                      href="/jogos"
+                      className="flex-1 rounded-2xl bg-indigo-100 px-5 py-3 text-center font-black text-indigo-700"
+                    >
+                      Praticar no jogo
+                    </Link>
+
+                    <button
+                      onClick={() => toggleComplete(activity.id)}
+                      className={`flex-1 rounded-2xl px-5 py-3 font-black ${
+                        done
+                          ? "bg-emerald-100 text-emerald-700"
+                          : "bg-cyan-500 text-white"
+                      }`}
+                    >
+                      {done ? "✓ Feita" : "Marcar feita"}
+                    </button>
                   </div>
                 </div>
-              )}
-            </div>
-          ))}
+              </article>
+            );
+          })}
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }
