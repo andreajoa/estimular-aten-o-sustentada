@@ -15,6 +15,11 @@
   padding: 0;
 }
 
+html, body {
+  width: 100%;
+  min-height: 100vh;
+}
+
 body {
   background: #f8fafc;
   color: #1e293b;
@@ -67,4 +72,23 @@ body {
   background: linear-gradient(90deg, #6366f1, #06b6d4);
   border-radius: 99px;
   transition: width 0.6s ease;
+}
+
+.section-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 640px) {
+  .section-container {
+    padding: 0 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-container {
+    padding: 0 64px;
+  }
 }

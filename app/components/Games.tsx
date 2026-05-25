@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const GAMES = [
   { id: "caca", title: "Caça aos Detalhes", emoji: "🔍", desc: "Encontre objetos escondidos" },
@@ -111,18 +111,14 @@ function MemoriaGame({ level }: { level: string }) {
         <div className={`text-center py-8 rounded-2xl ${correct ? "bg-green-50" : "bg-red-50"}`}>
           <div className="text-5xl mb-3">{correct ? "🎉" : "😔"}</div>
           <p className="text-xl font-bold mb-2">{correct ? "Sequência correta!" : "Sequência incorreta!"}</p>
-          <div className="flex justify-center gap-2 mb-4">
-            <span className="text-sm text-slate-500">Sequência: {sequence.join(" ")}</span>
-          </div>
-          <div className="flex justify-center gap-2 mb-4">
-            <span className="text-sm text-slate-500">Sua resposta: {answer.join(" ")}</span>
-          </div>
+          <p className="text-sm text-slate-500 mb-1">Sequência: {sequence.join(" ")}</p>
+          <p className="text-sm text-slate-500 mb-4">Sua resposta: {answer.join(" ")}</p>
           <button className="btn-primary" onClick={() => window.location.reload()}>Jogar Novamente</button>
         </div>
       ) : (
         <div>
           <p className="text-center text-slate-600 mb-2">Reproduza a sequência ({answer.length}/{sequence.length})</p>
-          <div className="flex justify-center gap-2 mb-4 min-h-12">
+          <div className="flex justify-center gap-2 mb-4 min-h-12 flex-wrap">
             {answer.map((c, i) => <span key={i} className="text-3xl">{c}</span>)}
           </div>
           <div className="grid grid-cols-4 gap-3">
@@ -144,7 +140,6 @@ function RelogioGame({ level }: { level: string }) {
   const [started, setStarted] = useState(false);
   const [selected, setSelected] = useState<number[]>([]);
   const [finished, setFinished] = useState(false);
-
   const correctIndices = letters.map((l, i) => l === "A" ? i : -1).filter(i => i !== -1);
 
   useEffect(() => {
@@ -205,14 +200,14 @@ export default function Games() {
   const startGame = (id: string) => { setActiveGame(id); setKey(k => k + 1); };
 
   return (
-    <section className="py-16 px-6 bg-gradient-to-br from-indigo-50 to-purple-50">
-      <div className="max-w-4xl mx-auto">
+    <section className="py-12 md:py-20 w-full bg-gradient-to-br from-indigo-50 to-purple-50">
+      <div className="section-container">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-slate-800 mb-3">🎮 Jogos Interativos</h2>
-          <p className="text-slate-500">Versões interativas das atividades para jogar diretamente no navegador!</p>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 mb-3">🎮 Jogos Interativos</h2>
+          <p className="text-slate-500 text-sm md:text-base">Versões interativas das atividades para jogar diretamente no navegador!</p>
         </div>
 
-        <div className="flex justify-center gap-3 mb-8">
+        <div className="flex justify-center gap-3 mb-8 flex-wrap">
           {[["facil","🟢 Fácil"],["medio","🟡 Médio"],["avancado","🔴 Avançado"]].map(([val, label]) => (
             <button key={val} onClick={() => setLevel(val)}
               className={`px-5 py-2 rounded-full font-medium text-sm transition-all ${level === val ? "bg-indigo-600 text-white shadow-lg" : "bg-white text-slate-600 hover:bg-indigo-50 border border-slate-200"}`}>
@@ -221,10 +216,10 @@ export default function Games() {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           {GAMES.map((g) => (
             <button key={g.id} onClick={() => startGame(g.id)}
-              className={`card text-left transition-all hover:scale-105 ${activeGame === g.id ? "border-2 border-indigo-400" : ""}`}>
+              className={`card text-left transition-all hover:scale-105 w-full ${activeGame === g.id ? "border-2 border-indigo-400" : ""}`}>
               <div className="text-4xl mb-2">{g.emoji}</div>
               <div className="font-bold text-slate-800">{g.title}</div>
               <div className="text-sm text-slate-500">{g.desc}</div>
@@ -233,7 +228,7 @@ export default function Games() {
         </div>
 
         {activeGame && (
-          <div className="card">
+          <div className="card w-full">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-slate-800">
                 {GAMES.find(g => g.id === activeGame)?.emoji} {GAMES.find(g => g.id === activeGame)?.title}

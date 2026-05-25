@@ -131,86 +131,88 @@ export default function Activities() {
   };
 
   return (
-    <section className="py-16 px-6 max-w-4xl mx-auto">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-slate-800 mb-3">5 Atividades Essenciais</h2>
-        <p className="text-slate-500 max-w-xl mx-auto">
-          Cada atividade foi desenvolvida para trabalhar aspectos específicos da atenção,
-          adaptáveis conforme a idade e interesse da criança.
-        </p>
-        <div className="mt-4 flex justify-center gap-2 text-sm">
-          <span className="badge-facil px-3 py-1 rounded-full font-medium">🟢 Fácil</span>
-          <span className="badge-medio px-3 py-1 rounded-full font-medium">🟡 Médio</span>
-          <span className="badge-avancado px-3 py-1 rounded-full font-medium">🔴 Avançado</span>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        {activities.map((act) => (
-          <div key={act.id} className={`card border-l-4 ${completed.includes(act.id) ? "border-green-400 opacity-80" : "border-indigo-400"}`}>
-            <div className="flex items-start gap-4">
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${act.color} flex items-center justify-center text-2xl flex-shrink-0`}>
-                {act.emoji}
-              </div>
-              <div className="flex-1">
-                <div className="flex flex-wrap items-center gap-2 mb-1">
-                  <h3 className="text-lg font-bold text-slate-800">{act.title}</h3>
-                  <span className={`${act.badge} text-xs px-2 py-0.5 rounded-full font-medium`}>{act.level}</span>
-                  <span className="text-xs text-slate-400">⏱ {act.time}</span>
-                </div>
-                <div className="flex gap-3 text-xs text-slate-500 mb-2">
-                  <span>🧠 {act.brain}</span>
-                  <span>🎯 {act.skill}</span>
-                </div>
-                <p className="text-slate-600 text-sm">{act.description}</p>
-              </div>
-            </div>
-
-            <div className="flex gap-3 mt-4">
-              <button
-                onClick={() => toggle(act.id)}
-                className="text-sm text-indigo-600 font-medium hover:text-indigo-800 transition-colors"
-              >
-                {expanded === act.id ? "▲ Ocultar dicas" : "▼ Ver benefícios e dicas"}
-              </button>
-              <button
-                onClick={() => toggleComplete(act.id)}
-                className={`ml-auto text-sm px-4 py-1.5 rounded-full font-medium transition-all ${
-                  completed.includes(act.id)
-                    ? "bg-green-100 text-green-700"
-                    : "bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
-                }`}
-              >
-                {completed.includes(act.id) ? "✓ Concluída" : "Marcar como concluída"}
-              </button>
-            </div>
-
-            {expanded === act.id && (
-              <div className="mt-4 grid md:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
-                <div>
-                  <h4 className="font-semibold text-slate-700 mb-2">💡 Dicas</h4>
-                  <ul className="space-y-1">
-                    {act.tips.map((tip, i) => (
-                      <li key={i} className="text-sm text-slate-600 flex gap-2">
-                        <span className="text-indigo-400 mt-0.5">•</span> {tip}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-slate-700 mb-2">✅ Benefícios</h4>
-                  <ul className="space-y-1">
-                    {act.benefits.map((b, i) => (
-                      <li key={i} className="text-sm text-slate-600 flex gap-2">
-                        <span className="text-green-400 mt-0.5">•</span> {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            )}
+    <section className="py-12 md:py-20 w-full">
+      <div className="section-container">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 mb-3">5 Atividades Essenciais</h2>
+          <p className="text-slate-500 max-w-2xl mx-auto text-sm md:text-base">
+            Cada atividade foi desenvolvida para trabalhar aspectos específicos da atenção,
+            adaptáveis conforme a idade e interesse da criança.
+          </p>
+          <div className="mt-4 flex justify-center gap-2 text-sm flex-wrap">
+            <span className="badge-facil px-3 py-1 rounded-full font-medium">🟢 Fácil</span>
+            <span className="badge-medio px-3 py-1 rounded-full font-medium">🟡 Médio</span>
+            <span className="badge-avancado px-3 py-1 rounded-full font-medium">🔴 Avançado</span>
           </div>
-        ))}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {activities.map((act) => (
+            <div key={act.id} className={`card border-l-4 ${completed.includes(act.id) ? "border-green-400 opacity-80" : "border-indigo-400"}`}>
+              <div className="flex items-start gap-4">
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${act.color} flex items-center justify-center text-2xl flex-shrink-0`}>
+                  {act.emoji}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <h3 className="text-base md:text-lg font-bold text-slate-800">{act.title}</h3>
+                    <span className={`${act.badge} text-xs px-2 py-0.5 rounded-full font-medium`}>{act.level}</span>
+                    <span className="text-xs text-slate-400">⏱ {act.time}</span>
+                  </div>
+                  <div className="flex flex-wrap gap-3 text-xs text-slate-500 mb-2">
+                    <span>🧠 {act.brain}</span>
+                    <span>🎯 {act.skill}</span>
+                  </div>
+                  <p className="text-slate-600 text-sm">{act.description}</p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-3 mt-4 items-center">
+                <button
+                  onClick={() => toggle(act.id)}
+                  className="text-sm text-indigo-600 font-medium hover:text-indigo-800 transition-colors"
+                >
+                  {expanded === act.id ? "▲ Ocultar dicas" : "▼ Ver benefícios e dicas"}
+                </button>
+                <button
+                  onClick={() => toggleComplete(act.id)}
+                  className={`ml-auto text-sm px-4 py-1.5 rounded-full font-medium transition-all ${
+                    completed.includes(act.id)
+                      ? "bg-green-100 text-green-700"
+                      : "bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
+                  }`}
+                >
+                  {completed.includes(act.id) ? "✓ Concluída" : "Marcar como concluída"}
+                </button>
+              </div>
+
+              {expanded === act.id && (
+                <div className="mt-4 grid sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+                  <div>
+                    <h4 className="font-semibold text-slate-700 mb-2">💡 Dicas</h4>
+                    <ul className="space-y-1">
+                      {act.tips.map((tip, i) => (
+                        <li key={i} className="text-sm text-slate-600 flex gap-2">
+                          <span className="text-indigo-400 mt-0.5">•</span> {tip}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-slate-700 mb-2">✅ Benefícios</h4>
+                    <ul className="space-y-1">
+                      {act.benefits.map((b, i) => (
+                        <li key={i} className="text-sm text-slate-600 flex gap-2">
+                          <span className="text-green-400 mt-0.5">•</span> {b}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
